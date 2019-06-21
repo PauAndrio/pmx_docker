@@ -24,11 +24,19 @@ RUN apt-get install -y curl grep sed dpkg && \
 RUN conda config --add channels defaults
 RUN conda config --add channels bioconda
 RUN conda config --add channels conda-forge
+
 RUN conda install -y gromacs
+RUN apt install -y gcc
+RUN conda install -y matplotlib
+RUN conda install -y scipy
+RUN conda install -y numpy
+RUN conda install -y pocl
+RUN ln -s /etc/OpenCL/vendors /opt/conda/etc/OpenCL/vendors
 
 RUN git clone https://github.com/deGrootLab/pmx pmx
-RUN cd pmx && pip  install -y .
-RUN ln -s pmx/pmx/scripts/cli.py anaconda2/bin/cli.py
+RUN cd pmx && python setup.py install
+RUN ln -s /pmx/pmx/scripts/cli.py /opt/conda/bin/cli.py
+RUN mkdir /inout
 
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
 CMD [ "/bin/bash" ]
