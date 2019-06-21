@@ -37,7 +37,7 @@ RUN git clone https://github.com/deGrootLab/pmx pmx
 RUN cd pmx && python setup.py install
 RUN ln -s /pmx/pmx/scripts/cli.py /opt/conda/bin/cli.py
 RUN mkdir /inout
-ENV GMXLIB=/pmx/pmx/data/mutff45:${GMXLIB}
+ENV GMXLIB=/pmx/pmx/data/mutff45
 
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
 CMD [ "/bin/bash" ]
