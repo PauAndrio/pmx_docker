@@ -27,17 +27,22 @@ RUN conda config --add channels conda-forge
 
 RUN conda install -y gromacs
 RUN apt install -y gcc
-RUN conda install -y matplotlib
 RUN conda install -y scipy
 RUN conda install -y numpy
 RUN conda install -y pocl
 RUN ln -s /etc/OpenCL/vendors /opt/conda/etc/OpenCL/vendors
+RUN pip install matplotlib
 
 RUN git clone https://github.com/deGrootLab/pmx pmx
 RUN cd pmx && python setup.py install
 RUN ln -s /pmx/pmx/scripts/cli.py /opt/conda/bin/cli.py
 RUN mkdir /inout
 ENV GMXLIB=/pmx/pmx/data/mutff45
+RUN pip uninstall -y matplotlib
+RUN python -m pip install --upgrade pip
+RUN pip install matplotlib
+RUN mkdir -p ~/.config/matplotlib/
+RUN echo "backend: Agg" > ~/.config/matplotlib/matplotlibrc
 
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
 CMD [ "/bin/bash" ]
