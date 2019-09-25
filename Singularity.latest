@@ -1,0 +1,4 @@
+# v1.0.0
+Bootstrap: docker
+From: pmx:latest
+Namespace: mmbirb
