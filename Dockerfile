@@ -4,7 +4,7 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
 
 #Apt's
-RUN apt-get update --fix-missing && apt-get install -y wget bzip2 ca-certificates libglib2.0-0 libxext6 libsm6 libxrender1  python-pip git && apt-get clean && apt-get autoremove --purge
+RUN apt-get update --fix-missing && apt-get install -y wget bzip2 ca-certificates libglib2.0-0 libxext6 libsm6 libxrender1  python-pip git python-tk && apt-get clean && apt-get autoremove --purge
 RUN git clone https://github.com/deGrootLab/pmx pmx
 RUN pip install setuptools scipy==1.1 matplotlib==2.2
 RUN cd pmx && python2 setup.py install
